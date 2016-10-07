@@ -6,7 +6,7 @@ app.factory('_', ['$window', function($window){
 
 
 app.config(function($stateProvider, $urlRouterProvider) {
-  //$urlRouterProvider.otherwise("/boards")
+  $urlRouterProvider.otherwise("/boards")
 
   $stateProvider.state("boards", {
     url: "/boards",
@@ -14,7 +14,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
       "": {
         templateUrl: "templates/boards/index.html",
         controller: "boardsIndexCtrl",
-
       }
     },
     resolve: { boards: function(boardService){ return boardService.all(); } }
@@ -39,14 +38,24 @@ app.config(function($stateProvider, $urlRouterProvider) {
       "@": {
         templateUrl: "templates/boards/show.html",
         controller: "boardsShowCtrl",
-      }
+      },
+
+      "lists@" : {
+        templateUrl: "templates/lists/index.html",
+        controller: "listsIndexCtrl", }
+
+
     },
 
     resolve: {
       board: function(boardService, $stateParams) {
-        return boardService.getBoard($stateParams.id).$object }
-    }
-  })
+        return boardService.getBoard($stateParams.id).$object },
+      lists: function(listService, $stateParams){ return listService.all($stateParams.id); }
+      }
+  });
+
+
+
 
 });
 

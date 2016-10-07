@@ -1,3 +1,11 @@
-<h1>{{ board.name }}</h1>
+<h1 ng-if="!editing.name" ng-click="changeEditingName()">{{ board.name }}</h1>
 
-<h6><span>Edit Board Name</span> | <span ng-click="deleteBoard()">Delete Board</span></h6>
+<div ng-if="editing.name">
+  <h1><input ng-model="board.name" value="{{ board.name }}"></h1>
+  <button class="btn btn-info" ng-click="updateBoardName()">Update!</button>
+</div>
+
+<h6><span ng-click="deleteBoard()">Delete Board</span></h6>
+
+
+<div ui-view></div>

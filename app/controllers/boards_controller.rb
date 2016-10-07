@@ -26,6 +26,14 @@ class BoardsController < ApplicationController
     end
   end
 
+  def update
+    @board = Board.find_by_id(params[:id]).update(board_params)
+
+    respond_to do |format|
+      format.json { render  json: @board, status: 200 }
+    end
+  end
+
   def destroy
     @board = Board.find_by_id(params[:id])
 

@@ -13,3 +13,9 @@ User.all.each do |u|
     u.boards.create(name: Faker::Company.name)
   end
 end
+
+Board.all.each do |b|
+  5.times do
+    b.lists.create(name: Faker::Space.nebula, description: Faker::Lorem.paragraph)
+  end
+end

@@ -1,6 +1,12 @@
+<%= content_for(:angular_app) do %>
+  ng-app="djello"
+<% end %>
+
+
 <%= render "shared/nav" %>
 <h1>Welcome to Djello!</h1>
 
-<div ui-view="show"></div>
-<div ui-view="boards"></div>
 <div ui-view></div>
+
+<div ui-view="boards"></div>
+<div ui-view="lists"></div>
