@@ -6,45 +6,48 @@ class ListsController < ApplicationController
     @lists = Board.find_by_id(params[:board_id]).lists
 
     respond_to do |format|
-      format.json { render  json: @lists, status: 200 }
+
+      format.json { render  json: @lists.to_json(include: :cards, status: 200) }
+      # format.json { render  json: @list, status: 200 }
+
     end
   end
 
-  # def create
-  #   @list = current_user.lists.create(list_params)
+  def create
+    @list = Board.find_by_id(params[:board_id]).lists.create(list_params)
 
-  #   respond_to do |format|
-  #      format.json { render  json: @list, status: 200 }
-  #   end
-  # end
+    respond_to do |format|
+       format.json { render  json: @list, status: 200 }
+    end
+  end
 
-  # def show
-  #   @list = List.find_by_id(params[:id])
+  def show
+    @list = List.find_by_id(params[:id])
 
+    respond_to do |format|
+      format.json do
+       render  json: @list, status: 200
+      end
+    end
 
-  #   respond_to do |format|
-  #     format.json { render  json: @list, status: 200 }
-  #   end
-  # end
+  end
 
-  # def update
-  #   @list = List.find_by_id(params[:id]).update(list_params)
+  def update
+    @list = List.find_by_id(params[:id]).update(list_params)
 
-  #   respond_to do |format|
-  #     format.json { render  json: @list, status: 200 }
-  #   end
-  # end
+    respond_to do |format|
+      format.json { render  json: @list, status: 200 }
+    end
+  end
 
-  # def destroy
-  #   @list = List.find_by_id(params[:id])
+  def destroy
+    @list = List.find_by_id(params[:id]).destroy()
 
-  #   @list.destroy()
+    respond_to do |format|
+      format.json { render  json: @list, status: 200 }
+    end
 
-  #   respond_to do |format|
-  #     format.json { render  json: @list, status: 200 }
-  #   end
-
-  # end
+  end
 
   private
 

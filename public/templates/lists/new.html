@@ -1,6 +1,6 @@
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
-  New Board
+  New List
 </button>
 
 <!-- Modal -->
@@ -16,8 +16,11 @@
       <div class="modal-body">
         <form class="form">
 
-          <label>Board Name</label>
-          <input ng-model="newBoard.name" required>
+          <label>List Name</label>
+          <input ng-model="newList.name" ng-required>
+
+          <label>List Description</label>
+          <textarea placeholder="Your Description" ng-model="newList.description" ng-required></textarea>
 
         </form>
       </div>
@@ -25,7 +28,7 @@
       <div class="modal-footer">
 
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" ng-click="createNewBoard()" data-dismiss="modal">Create New Board</button>
+        <button type="button" class="btn btn-primary" ng-click="createNewList()" data-dismiss="modal">Create New List</button>
       </div>
     </div>
   </div>

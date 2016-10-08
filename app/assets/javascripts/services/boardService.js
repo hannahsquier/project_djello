@@ -1,30 +1,15 @@
-app.factory("boardService", ["Restangular", "$stateParams", "$state", function(Restangular, $stateParams, $state) {
+app.factory("boardService", ["Restangular", "$stateParams", "$state", "Auth", function(Restangular, $stateParams, $state, Auth) {
   var _boards = []
 
   var all = function() {
+    console.log(Auth.currentUser())
     return Restangular.all("boards").getList().then(function(response) {
-        angular.copy(response, _boards)
+        return angular.copy(response, _boards)
     });
-  }
-
-  var _createBoard = function(params) {
-    return Restangular.all('boards').post({
-          board: {
-            name: params.name,
-            user_id: 2
-          }
-        }).then(function(response) {
-          _boards.push(response)
-        })
   }
 
   var getBoards = function() {
     return _boards;
-  }
-
-  var fillBoards = function(boards) {
-    angular.copy(boards, _boards)
-    return _boards
   }
 
   var getBoard = function(id) {
@@ -36,7 +21,7 @@ app.factory("boardService", ["Restangular", "$stateParams", "$state", function(R
     Restangular.one('boards', $stateParams.id).patch({
       board: {
         name: params.name,
-        user_id: 2
+        user_id: Auth.currentUser()
       }
     }).then(function() {
       $state.go("boards.show", {id: $stateParams.id});
@@ -49,10 +34,17 @@ app.factory("boardService", ["Restangular", "$stateParams", "$state", function(R
     }
   }
 
-  Restangular.extendCollection('boards', function(collection){
-    collection.create = _createBoard;
-    return collection;
-  });
+  var createBoard = function(params) {
+    return Restangular.all('boards').post({
+          board: {
+            name: params.name,
+            user_id: 2
+          }
+        }).then(function(response) {
+          _boards.push(response)
+        })
+
+  }
 
   Restangular.extendModel('boards', function(board){
     board.update = _updateBoard;
@@ -63,8 +55,8 @@ app.factory("boardService", ["Restangular", "$stateParams", "$state", function(R
   return {
     all: all,
     getBoards: getBoards,
-    fillBoards: fillBoards,
     getBoard: getBoard,
-    deleteBoard: deleteBoard
+    deleteBoard: deleteBoard,
+    createBoard: createBoard
   }
 }]);

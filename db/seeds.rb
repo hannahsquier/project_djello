@@ -19,3 +19,9 @@ Board.all.each do |b|
     b.lists.create(name: Faker::Space.nebula, description: Faker::Lorem.paragraph)
   end
 end
+
+List.all.each do |l|
+  5.times do
+    l.cards.create(name: Faker::Space.nebula, description: Faker::Lorem.paragraph)
+  end
+end

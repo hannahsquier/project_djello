@@ -15,9 +15,13 @@ app.controller("boardsShowCtrl", ["board", "$scope", "$state", "boardService", f
   $scope.board = board;
 
   $scope.deleteBoard = function() {
-    $scope.board.remove().then(function() {
-      boardService.deleteBoard(board.id)
-      return $state.go('boards')
-    })
+    if(confirm("Are you sure you want to delete this board?")) {
+      $scope.board.remove().then(function() {
+        boardService.deleteBoard(board.id)
+        return $state.go('boards')
+      })
+    }
   }
+
+
 }])

@@ -1,12 +1,15 @@
-var app = angular.module("djello", ["ui.router", 'restangular'])
+var app = angular.module("djello", ["ui.router", 'restangular', 'Devise'])
 
 app.factory('_', ['$window', function($window){
   return $window._;
 }]);
 
+app.run(function($rootScope){
+  $rootScope.$on("$stateChangeError", console.error.bind(console));
+});
 
 app.config(function($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise("/boards")
+  //$urlRouterProvider.otherwise("/boards")
 
   $stateProvider.state("boards", {
     url: "/boards",
@@ -21,16 +24,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
     );
 
-  $stateProvider.state("boards.new", {
-    url:"/new",
-    views: {
-      "new@boards": {
-        templateUrl: "templates/boards/new.html",
-        controller: "boardsNewCtrl",
-      }
-    }
-
-  });
 
   $stateProvider.state("boards.show", {
     url: "/:id",
@@ -42,7 +35,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
       "lists@" : {
         templateUrl: "templates/lists/index.html",
-        controller: "listsIndexCtrl", }
+        controller: "listsIndexCtrl", },
+
+       "cards@" : {
+        templateUrl: "templates/cards/index.html",
+        controller: "cardsIndexCtrl", }
 
 
     },

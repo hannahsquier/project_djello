@@ -13,7 +13,10 @@ Rails.application.routes.draw do
   scope :api do
     scope :v1 do
       resources :boards do
-        resources :lists
+        resources :lists do
+          resources :cards do
+          end
+        end
       end
     end
   end

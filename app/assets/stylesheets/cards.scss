@@ -1,0 +1,14 @@
+// Place all the styles related to the cards controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.card {
+  border: 2px solid #eee;
+  margin: 10px;
+  background-color: #f1f3f4;
+  border-radius: 10px;
+}
+
+.card-desc-edit {
+  width: 100%;
+  height: 5;
+}

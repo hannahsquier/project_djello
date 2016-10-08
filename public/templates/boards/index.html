@@ -2,16 +2,13 @@
 <h2>Your Boards</h2>
 <hr>
 
-<a ui-sref="boards.new"><button class="btn btn-success">Create New Board</button></a>
-<div ui-view="new"></div>
+<board-new></board-new>
 
 <div class="row">
 
   <div class="col-xs-3" ng-repeat="board in boards">
 
     <a ui-sref="boards.show({id: board.id})"><div class="board">{{ board.name }}</div></a>
-
-
 
   </div>
 </div>
